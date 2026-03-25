@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "trimtoken"
-version = "0.1.0"
+version = "0.1.1"
 description = "Surgical context compression for Ollama, Open WebUI, LM Studio, and any local LLM"
 readme = "README.md"
 license = { file = "LICENSE" }

@@ -3,8 +3,14 @@ name: Tests
 on:
   push:
     branches: [main, dev]
+    tags:
+      - "v*"
   pull_request:
     branches: [main]
+
+permissions:
+  contents: read
+  id-token: write
 
 jobs:
   test:
@@ -52,6 +58,7 @@ jobs:
           python-version: "3.12"
       - run: pip install hatch
       - run: hatch build
-      - uses: pypa/gh-action-pypi-publish@release/v1
+      - name: Publish to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
         with:
           password: ${{ secrets.PYPI_API_TOKEN }}
