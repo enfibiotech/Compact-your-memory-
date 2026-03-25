@@ -6,18 +6,20 @@ and any endpoint that speaks the OpenAI chat completions format.
 
 from __future__ import annotations
 
+from typing import Any
+
 from ..compressor import ContextCompressor
 from ..models import CompressionReport
 from ..scorer import BaseScorer, EnsembleScorer, RecencyScorer, TFIDFScorer
 
 
 def compress_for_openai_compat(
-    messages: list[dict],
+    messages: list[dict[str, Any]],
     token_budget: int,
     scorer: BaseScorer | None = None,
     query: str | None = None,
-    **compressor_kwargs,
-) -> tuple[list[dict], CompressionReport]:
+    **compressor_kwargs: Any,
+) -> tuple[list[dict[str, Any]], CompressionReport]:
     """
     Drop-in for any OpenAI-compatible messages=[].
     Works with LM Studio, llama.cpp, Jan, AnythingLLM, etc.

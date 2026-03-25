@@ -6,6 +6,8 @@ Compression is automatic on every request — no other code changes needed.
 
 from __future__ import annotations
 
+from typing import Any
+
 try:
     from pydantic import BaseModel
 except ImportError:
@@ -33,14 +35,14 @@ class TrimTokenPipe:
         DROP_THRESHOLD: float = 0.20
         SHOW_REPORT: bool = False
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.valves = self.Valves()
 
     async def pipe(
         self,
-        body: dict,
-        __user__: dict | None = None,
-    ) -> dict:
+        body: dict[str, Any],
+        __user__: dict[str, Any] | None = None,
+    ) -> dict[str, Any]:
         """Intercept request, compress messages, return updated body."""
         from trimtoken.integrations.ollama import compress_for_ollama
         from trimtoken.scorer import EnsembleScorer, RecencyScorer, TFIDFScorer

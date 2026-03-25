@@ -6,6 +6,9 @@ import argparse
 import asyncio
 import json
 import sys
+from typing import Any, cast
+
+from .models import CompressionReport
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -42,16 +45,16 @@ def build_parser() -> argparse.ArgumentParser:
     return parser
 
 
-def _read_input(path: str | None) -> list[dict]:
+def _read_input(path: str | None) -> list[dict[str, Any]]:
     if path is None or path == "-":
         data = sys.stdin.read()
     else:
         with open(path) as f:
             data = f.read()
-    return json.loads(data)
+    return cast(list[dict[str, Any]], json.loads(data))
 
 
-def _print_report_table(report) -> None:
+def _print_report_table(report: CompressionReport) -> None:
     rows = [
         ("Original tokens", f"{report.original_tokens:,}"),
         ("Compressed tokens", f"{report.compressed_tokens:,}"),

@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from collections.abc import Callable
+from typing import Any
 
 from .budget import BudgetResolver
 from .models import Chunk, CompressedContext, CompressionReport
@@ -50,7 +51,7 @@ class ContextCompressor:
         segmenter: BaseSegmenter | None = None,
         tokenizer: Callable[[str], int] | None = None,
         preserve_roles: list[str] | None = None,
-        **budget_config,
+        **budget_config: Any,
     ):
         self.token_budget = token_budget
         self.scorer = scorer or TFIDFScorer()
@@ -78,7 +79,7 @@ class ContextCompressor:
 
     def compress(
         self,
-        messages: list[dict],
+        messages: list[dict[str, Any]],
         query: str | None = None,
         pin: list[int] | None = None,
     ) -> CompressedContext:
@@ -145,14 +146,14 @@ class ContextCompressor:
         )
 
     def score_only(
-        self, messages: list[dict], query: str | None = None
+        self, messages: list[dict[str, Any]], query: str | None = None
     ) -> list[Chunk]:
         """Score without compressing. Useful for inspection."""
         chunks = self.segmenter.segment(messages)
         return self.scorer.score(chunks, query)
 
     def estimate_savings(
-        self, messages: list[dict], query: str | None = None
+        self, messages: list[dict[str, Any]], query: str | None = None
     ) -> CompressionReport:
         """Dry-run: report what would be compressed without modifying messages."""
         result = self.compress(messages, query)
@@ -161,7 +162,7 @@ class ContextCompressor:
     # ── internals ─────────────────────────────────────────────────────────
 
     @staticmethod
-    def _chunks_to_messages(chunks: list[Chunk]) -> list[dict]:
+    def _chunks_to_messages(chunks: list[Chunk]) -> list[dict[str, Any]]:
         """Re-merge chunks back into role-grouped messages."""
         if not chunks:
             return []

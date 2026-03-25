@@ -7,7 +7,7 @@ import re
 from abc import ABC, abstractmethod
 from collections import Counter
 from collections.abc import Callable
-from typing import Protocol
+from typing import Any, Protocol, cast
 
 from .models import Chunk
 
@@ -53,7 +53,7 @@ class TFIDFScorer(BaseScorer):
         q_tokens = self._tokenize(q)
         docs = [self._tokenize(c.content) for c in chunks]
         N = len(docs)
-        df: Counter = Counter()
+        df: Counter[str] = Counter()
         for doc in docs:
             df.update(set(doc))
 
@@ -153,7 +153,11 @@ class EmbeddingScorer(BaseScorer):
         batch_size:   passed to embedding_fn in batches (default: 32)
     """
 
-    def __init__(self, embedding_fn: Callable, batch_size: int = 32):
+    def __init__(
+        self,
+        embedding_fn: Callable[[list[str]], list[list[float]]],
+        batch_size: int = 32,
+    ):
         self.embedding_fn = embedding_fn
         self.batch_size = batch_size
 
@@ -210,7 +214,7 @@ class OllamaEmbeddingScorer(BaseScorer):
             timeout=60,
         )
         resp.raise_for_status()
-        return resp.json()["embeddings"]
+        return cast(list[list[float]], resp.json()["embeddings"])
 
     def score(self, chunks: list[Chunk], query: str | None = None) -> list[Chunk]:
         delegate = EmbeddingScorer(self._embed, self.batch_size)

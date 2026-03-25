@@ -44,7 +44,7 @@ class CompressionReport:
 @dataclass
 class CompressedContext:
     """Return value of ContextCompressor.compress()."""
-    messages: list[dict]        # drop-in replacement for messages[]
+    messages: list[dict[str, Any]]        # drop-in replacement for messages[]
     report: CompressionReport
     chunks: list[Chunk]         # inspectable scored chunks
 

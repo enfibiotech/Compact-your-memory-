@@ -6,13 +6,14 @@ import hashlib
 import re
 from abc import ABC, abstractmethod
 from collections.abc import Callable
+from typing import Any
 
 from .models import Chunk, Role
 
 
 class BaseSegmenter(ABC):
     @abstractmethod
-    def segment(self, messages: list[dict]) -> list[Chunk]:
+    def segment(self, messages: list[dict[str, Any]]) -> list[Chunk]:
         """Split messages into scored-ready chunks."""
         ...
 
@@ -49,11 +50,13 @@ class SentenceSegmenter(BaseSegmenter):
         if self.backend == "spacy":
             if self._nlp is None:
                 import spacy
+
                 self._nlp = spacy.load("en_core_web_sm")
+            assert self._nlp is not None
             return [s.text.strip() for s in self._nlp(text).sents if s.text.strip()]
         return [s.strip() for s in re.split(r"(?<=[.!?])\s+", text) if s.strip()]
 
-    def segment(self, messages: list[dict]) -> list[Chunk]:
+    def segment(self, messages: list[dict[str, Any]]) -> list[Chunk]:
         chunks = []
         pos = 0
         for msg in messages:
@@ -79,7 +82,7 @@ class ParagraphSegmenter(BaseSegmenter):
     Splits on double newlines. Fast, good for structured documents.
     """
 
-    def segment(self, messages: list[dict]) -> list[Chunk]:
+    def segment(self, messages: list[dict[str, Any]]) -> list[Chunk]:
         chunks = []
         pos = 0
         for msg in messages:
@@ -106,7 +109,7 @@ class MessageSegmenter(BaseSegmenter):
     Best for aggressive compression of long multi-turn chats.
     """
 
-    def segment(self, messages: list[dict]) -> list[Chunk]:
+    def segment(self, messages: list[dict[str, Any]]) -> list[Chunk]:
         chunks = []
         for i, msg in enumerate(messages):
             role = Role(msg.get("role", "user"))
@@ -131,11 +134,15 @@ class SemanticSegmenter(BaseSegmenter):
         similarity_cutoff: boundary when sim drops below this (default: 0.75)
     """
 
-    def __init__(self, embedding_fn: Callable, similarity_cutoff: float = 0.75):
+    def __init__(
+        self,
+        embedding_fn: Callable[[list[str]], list[list[float]]],
+        similarity_cutoff: float = 0.75,
+    ):
         self.embedding_fn = embedding_fn
         self.similarity_cutoff = similarity_cutoff
 
-    def segment(self, messages: list[dict]) -> list[Chunk]:
+    def segment(self, messages: list[dict[str, Any]]) -> list[Chunk]:
         import numpy as np
 
         # First pass: sentence-level

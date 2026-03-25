@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 if TYPE_CHECKING:
     from ..scorer import BaseScorer
@@ -48,14 +48,14 @@ async def get_model_context_size(
 
 
 async def compress_for_ollama(
-    messages: list[dict],
+    messages: list[dict[str, Any]],
     model: str,
     ollama_url: str = "http://localhost:11434",
     scorer: BaseScorer | None = None,
     query: str | None = None,
     budget_ratio: float = 0.85,
-    **compressor_kwargs,
-) -> tuple[list[dict], CompressionReport]:
+    **compressor_kwargs: Any,
+) -> tuple[list[dict[str, Any]], CompressionReport]:
     """
     One-liner drop-in for Ollama's messages=[].
 
