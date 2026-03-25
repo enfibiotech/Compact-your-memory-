@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "trimtoken"
-version = "0.1.1"
+version = "0.1.2"
 description = "Surgical context compression for Ollama, Open WebUI, LM Studio, and any local LLM"
 readme = "README.md"
 license = { file = "LICENSE" }
@@ -17,7 +17,7 @@ keywords = [
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
-    "License :: OSI Approved :: Apache Software License",
+    "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
@@ -53,11 +53,11 @@ all = ["trimtoken[ollama,spacy,openai,anthropic,langchain]"]
 trimtoken = "trimtoken.cli:main"
 
 [project.urls]
-Homepage      = "https://github.com/your-org/trimtoken"
-Documentation = "https://trimtoken.dev/docs"
-Repository    = "https://github.com/your-org/trimtoken"
-Issues        = "https://github.com/your-org/trimtoken/issues"
-Changelog     = "https://github.com/your-org/trimtoken/CHANGELOG.md"
+Homepage      = "https://github.com/enfibiotech/Compact-your-memory-"
+Documentation = "https://github.com/enfibiotech/Compact-your-memory-/tree/main/docs"
+Repository    = "https://github.com/enfibiotech/Compact-your-memory-"
+Issues        = "https://github.com/enfibiotech/Compact-your-memory-/issues"
+Changelog     = "https://github.com/enfibiotech/Compact-your-memory-/blob/main/CHANGELOG.md"
 
 [tool.hatch.build.targets.wheel]
 packages = ["trimtoken"]
