@@ -7,7 +7,7 @@ import re
 from abc import ABC, abstractmethod
 from collections import Counter
 from collections.abc import Callable
-from typing import Any, Protocol, cast
+from typing import Protocol, cast
 
 from .models import Chunk
 
