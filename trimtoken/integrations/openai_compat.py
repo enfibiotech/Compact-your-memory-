@@ -5,9 +5,10 @@ and any endpoint that speaks the OpenAI chat completions format.
 """
 
 from __future__ import annotations
+
 from ..compressor import ContextCompressor
 from ..models import CompressionReport
-from ..scorer import BaseScorer, TFIDFScorer, RecencyScorer, EnsembleScorer
+from ..scorer import BaseScorer, EnsembleScorer, RecencyScorer, TFIDFScorer
 
 
 def compress_for_openai_compat(

@@ -42,7 +42,7 @@ class TrimTokenPipe:
 
     async def pipe(self, body: dict, __user__: dict | None = None) -> dict:
         from trimtoken.integrations.ollama import compress_for_ollama
-        from trimtoken.scorer import TFIDFScorer, RecencyScorer, EnsembleScorer
+        from trimtoken.scorer import EnsembleScorer, RecencyScorer, TFIDFScorer
 
         scorer_map = {
             "tfidf": TFIDFScorer(),

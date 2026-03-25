@@ -6,7 +6,8 @@ import math
 import re
 from abc import ABC, abstractmethod
 from collections import Counter
-from typing import Callable, Protocol
+from collections.abc import Callable
+from typing import Protocol
 
 from .models import Chunk
 
@@ -56,7 +57,7 @@ class TFIDFScorer(BaseScorer):
         for doc in docs:
             df.update(set(doc))
 
-        for chunk, doc in zip(chunks, docs):
+        for chunk, doc in zip(chunks, docs, strict=False):
             if not doc or not q_tokens:
                 chunk.score = 0.1
                 continue
@@ -106,7 +107,7 @@ class EntropyScorer(BaseScorer):
     def score(self, chunks: list[Chunk], query: str | None = None) -> list[Chunk]:
         scores = [self._entropy(c.content) for c in chunks]
         max_s = max(scores) if scores else 1.0
-        for chunk, s in zip(chunks, scores):
+        for chunk, s in zip(chunks, scores, strict=False):
             chunk.score = self._clamp(s / max_s if max_s else 0.0)
         return chunks
 
@@ -174,7 +175,7 @@ class EmbeddingScorer(BaseScorer):
         query_emb = query_emb / (np.linalg.norm(query_emb) or 1)
 
         sims = chunk_embs @ query_emb
-        for chunk, sim in zip(chunks, sims):
+        for chunk, sim in zip(chunks, sims, strict=False):
             chunk.score = self._clamp((float(sim) + 1) / 2)
 
         return chunks

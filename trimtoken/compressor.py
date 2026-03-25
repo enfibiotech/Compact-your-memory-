@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Callable
+from collections.abc import Callable
 
 from .budget import BudgetResolver
 from .models import Chunk, CompressedContext, CompressionReport
@@ -62,15 +62,15 @@ class ContextCompressor:
 
     # ── fluent builder ────────────────────────────────────────────────────
 
-    def with_scorer(self, scorer: BaseScorer) -> "ContextCompressor":
+    def with_scorer(self, scorer: BaseScorer) -> ContextCompressor:
         self.scorer = scorer
         return self
 
-    def with_strategy(self, strategy: BaseCompressionStrategy) -> "ContextCompressor":
+    def with_strategy(self, strategy: BaseCompressionStrategy) -> ContextCompressor:
         self.strategy = strategy
         return self
 
-    def with_segmenter(self, segmenter: BaseSegmenter) -> "ContextCompressor":
+    def with_segmenter(self, segmenter: BaseSegmenter) -> ContextCompressor:
         self.segmenter = segmenter
         return self
 

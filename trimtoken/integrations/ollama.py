@@ -9,7 +9,7 @@ if TYPE_CHECKING:
 
 from ..compressor import ContextCompressor
 from ..models import CompressionReport
-from ..scorer import TFIDFScorer, RecencyScorer, EnsembleScorer
+from ..scorer import EnsembleScorer, RecencyScorer, TFIDFScorer
 
 _CONTEXT_CACHE: dict[str, int] = {}
 
@@ -51,7 +51,7 @@ async def compress_for_ollama(
     messages: list[dict],
     model: str,
     ollama_url: str = "http://localhost:11434",
-    scorer: "BaseScorer | None" = None,
+    scorer: BaseScorer | None = None,
     query: str | None = None,
     budget_ratio: float = 0.85,
     **compressor_kwargs,

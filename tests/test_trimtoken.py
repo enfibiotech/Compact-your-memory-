@@ -1,21 +1,20 @@
 """Tests for trimtoken core components."""
 
-import pytest
 from trimtoken import (
-    ContextCompressor,
-    TFIDFScorer,
-    RecencyScorer,
-    EntropyScorer,
-    KeywordScorer,
-    EnsembleScorer,
-    SentenceSegmenter,
-    MessageSegmenter,
-    DropStrategy,
-    HeadTailStrategy,
     CascadeStrategy,
+    ContextCompressor,
+    DropStrategy,
+    EnsembleScorer,
+    EntropyScorer,
+    HeadTailStrategy,
+    KeywordScorer,
+    MessageSegmenter,
+    RecencyScorer,
+    SentenceSegmenter,
+    TFIDFScorer,
 )
-from trimtoken.models import Chunk, Role
 from trimtoken.budget import BudgetResolver
+from trimtoken.models import Chunk, Role
 
 # ── fixtures ──────────────────────────────────────────────────────────────────
 

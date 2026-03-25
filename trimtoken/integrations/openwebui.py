@@ -42,9 +42,8 @@ class TrimTokenPipe:
         __user__: dict | None = None,
     ) -> dict:
         """Intercept request, compress messages, return updated body."""
-        import asyncio
         from trimtoken.integrations.ollama import compress_for_ollama
-        from trimtoken.scorer import TFIDFScorer, RecencyScorer, EnsembleScorer
+        from trimtoken.scorer import EnsembleScorer, RecencyScorer, TFIDFScorer
 
         scorer_map = {
             "tfidf": TFIDFScorer(),

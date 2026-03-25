@@ -5,35 +5,36 @@ Trim the fat. Keep the signal.
 """
 
 from .compressor import ContextCompressor
+from .models import Chunk, CompressedContext, CompressionReport, Role
 from .scorer import (
     BaseScorer,
-    TFIDFScorer,
-    RecencyScorer,
+    EmbeddingScorer,
+    EnsembleScorer,
     EntropyScorer,
     KeywordScorer,
-    EmbeddingScorer,
     OllamaEmbeddingScorer,
-    EnsembleScorer,
+    RecencyScorer,
+    TFIDFScorer,
 )
 from .segmenter import (
     BaseSegmenter,
-    SentenceSegmenter,
-    ParagraphSegmenter,
     MessageSegmenter,
+    ParagraphSegmenter,
     SemanticSegmenter,
+    SentenceSegmenter,
 )
-from .models import Chunk, CompressedContext, CompressionReport, Role
 from .strategies import (
+    CascadeStrategy,
     DropStrategy,
     HeadTailStrategy,
-    SummarizeStrategy,
     ParaphraseStrategy,
-    CascadeStrategy,
+    SummarizeStrategy,
 )
 
 __version__ = "0.1.0"
 __all__ = [
     "ContextCompressor",
+    "BaseScorer",
     "EnsembleScorer",
     "TFIDFScorer",
     "RecencyScorer",
@@ -41,6 +42,7 @@ __all__ = [
     "KeywordScorer",
     "EmbeddingScorer",
     "OllamaEmbeddingScorer",
+    "BaseSegmenter",
     "SentenceSegmenter",
     "ParagraphSegmenter",
     "MessageSegmenter",

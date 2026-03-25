@@ -1,8 +1,9 @@
 """HeadTailStrategy — keep first N and last M tokens of each chunk."""
 
 from __future__ import annotations
-from .drop import BaseCompressionStrategy
+
 from ..models import Chunk
+from .drop import BaseCompressionStrategy
 
 
 class HeadTailStrategy(BaseCompressionStrategy):

@@ -5,7 +5,7 @@ from __future__ import annotations
 import hashlib
 import re
 from abc import ABC, abstractmethod
-from typing import Callable
+from collections.abc import Callable
 
 from .models import Chunk, Role
 

@@ -7,9 +7,8 @@ No subclassing required — just implement .score(chunks, query).
 Run with: python examples/custom_scorer.py
 """
 
-from trimtoken import ContextCompressor, EnsembleScorer, TFIDFScorer, MessageSegmenter, DropStrategy
+from trimtoken import ContextCompressor, DropStrategy, EnsembleScorer, MessageSegmenter, TFIDFScorer
 from trimtoken.models import Chunk
-
 
 # ── Custom scorer: boost chunks mentioning specific entities ──────────────────
 
@@ -41,7 +40,9 @@ class EntityScorer:
 MESSAGES = [
     {"role": "system", "content": "You are a billing assistant."},
     {"role": "user", "content": "I have a question about invoice INV-2024-998."},
-    {"role": "assistant", "content": "Happy to help! Invoice INV-2024-998 is for $1,250.00 due on 15/06/2024."},
+    {"role": "assistant", "content": (
+        "Happy to help! Invoice INV-2024-998 is for $1,250.00 due on 15/06/2024."
+    )},
     {"role": "user", "content": "Who is the weather today?"},
     {"role": "assistant", "content": "I'm a billing assistant, not a weather service!"},
     {"role": "user", "content": "Can I get an extension on INV-2024-998?"},

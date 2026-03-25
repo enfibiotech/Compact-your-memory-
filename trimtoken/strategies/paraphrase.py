@@ -1,13 +1,16 @@
 """ParaphraseStrategy — concise rewriting via LLM."""
 
 from __future__ import annotations
-from typing import Callable
-from .drop import BaseCompressionStrategy
+
+from collections.abc import Callable
+
 from ..models import Chunk
+from .drop import BaseCompressionStrategy
 
 DEFAULT_PROMPT = (
     "Rewrite the following text more concisely, targeting {ratio:.0%} of the original "
-    "length. Preserve all key facts and named entities. Output only the rewritten text.\n\n{content}"
+    "length. Preserve all key facts and named entities. Output only the rewritten "
+    "text.\n\n{content}"
 )
 
 

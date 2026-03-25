@@ -1,8 +1,9 @@
 """CascadeStrategy — try strategies in order until budget is met."""
 
 from __future__ import annotations
-from .drop import BaseCompressionStrategy
+
 from ..models import Chunk
+from .drop import BaseCompressionStrategy
 
 
 class CascadeStrategy(BaseCompressionStrategy):

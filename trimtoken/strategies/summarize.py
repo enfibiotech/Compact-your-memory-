@@ -1,9 +1,11 @@
 """SummarizeStrategy — LLM-based chunk summarization."""
 
 from __future__ import annotations
-from typing import Callable
-from .drop import BaseCompressionStrategy
+
+from collections.abc import Callable
+
 from ..models import Chunk
+from .drop import BaseCompressionStrategy
 
 DEFAULT_PROMPT = (
     "Summarize the following conversation excerpt in {max_tokens} tokens or fewer. "
