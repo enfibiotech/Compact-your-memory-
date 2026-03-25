@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-	<a href="LICENSE"><img src="https://img.shields.io/badge/license-Apache%202.0-green.svg" alt="License: Apache-2.0"></a>
+	<a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-green.svg" alt="License: MIT"></a>
 	<img src="https://img.shields.io/badge/python-3.10%2B-blue.svg" alt="Python 3.10+">
 	<img src="https://img.shields.io/badge/type%20checked-mypy-blue" alt="Type checked: mypy">
 	<img src="https://img.shields.io/badge/lint-ruff-46a2f1" alt="Lint: ruff">
@@ -196,5 +196,5 @@ Contributions are welcome. Please read CONTRIBUTING.md for workflow and standard
 
 ## License
 
-Apache License 2.0. See LICENSE.
+MIT License. See LICENSE.
 
